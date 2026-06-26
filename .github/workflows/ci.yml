@@ -2,12 +2,10 @@ name: ADK CI Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
@@ -16,11 +14,9 @@ jobs:
 
     steps:
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -29,6 +25,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Verify ADK Installation
+      - name: Lint Code
+        run: |
+          ruff check .
+          
+      - name: Run Tests
+        run: |
+          pytest
+
+      - name: Verify ADK
         run: |
           adk --help

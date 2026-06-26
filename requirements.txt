@@ -1,3 +1,5 @@
 google-adk
 litellm
 python-dotenv
+ruff 
+pytestnetstat -ano | findstr :<PORT>netstat -ano | findstr :<PORT>
