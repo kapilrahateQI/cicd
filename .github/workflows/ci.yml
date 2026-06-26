@@ -9,11 +9,9 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
@@ -28,10 +26,23 @@ jobs:
       - name: Lint Code
         run: |
           ruff check .
-          
+
+      - name: Show Project Structure
+        run: |
+          pwd
+          ls -R
+
+      - name: Debug Environment
+        run: |
+          pwd
+          ls -la
+          python --version
+          python -c "import os; print(os.getcwd())"
+          python -c "import sys; print(sys.path)"
+
       - name: Run Tests
         run: |
-          pytest
+          python -m pytest -v
 
       - name: Verify ADK
         run: |
